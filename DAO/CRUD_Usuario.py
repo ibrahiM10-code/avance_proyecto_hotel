@@ -12,10 +12,10 @@ def ingresar(usu):
         con=Conexion(db, host, password, user)
 
         sql="INSERT INTO usuario SET nombre='{}',apellidoPaterno='{}',sexo='{}'," \
-            "rut='{}',direccion='{}',correo='{}',telefono='{}', Tipo_Usuario_idTipo_Usuario = 1," \
+            "rut='{}',direccion='{}',correo='{}',telefono='{}', Tipo_Usuario_idTipo_Usuario = '{}'," \
             "apellidoMaterno='{}'".\
             format(usu.nombre,usu.apellido_paterno,usu.sexo,usu.rut,usu.direccion,usu.correo,
-                   usu.telefono,usu.apellido_materno)
+                   usu.telefono, usu.id_tipo_usuario,usu.apellido_materno)
 
         con.ejecutar_query(sql)
         con.commit()
@@ -25,15 +25,15 @@ def ingresar(usu):
     except Exception as e:
         print("Error al Insertar: ",e)
 
-#Función Modificar
+#Función Modificar (usu es una lista que contiene los nuevos datos)
 def modificar(usu):
     try:
-        con=Conexion(db, host, password, user)
+        con = Conexion(db, host, password, user)
 
         sql="UPDATE usuario SET rut='{}', nombre='{},'apellidoPaterno='{}',sexo='{}'," \
             ",direccion='{}',correo='{}',telefono='{}'," \
-            "apellidoMaterno='{}' WHERE idUsuario= {}".\
-            format(usu[4],usu[1],usu[2],usu[3],usu[5],usu[6],usu[7],usu[9],usu[0])
+            "apellidoMaterno='{}', email= '{}' WHERE idUsuario= {}".\
+            format(usu[4],usu[1],usu[2],usu[3],usu[5],usu[6],usu[7],usu[9], usu[10], usu[0])
 
         con.ejecutar_query(sql)
         con.commit()
@@ -62,7 +62,7 @@ def eliminar(id):
 
 #Función MosrtrarTodos
 
-def mostrarTodos():
+def mostrar_todos():
     try:
         con=Conexion(db, host, password, user)
         sql="SELECT * FROM usuario"
@@ -78,7 +78,7 @@ def mostrarTodos():
 
 #Función Mostrar Particular
 
-def mostrarParticular(id):
+def mostrar_particular(id):
     try:
         con=Conexion(db, host, password, user)
         sql="SELECT * FROM usuario WHERE idUsuario={}".format(id)
@@ -92,7 +92,7 @@ def mostrarParticular(id):
         con.rollBack()
         print("Error en Mosrar Particular: ",e)
 
-def mostrarParcial(cant):
+def mostrar_parcial(cant):
     try:
         con=Conexion(db, host, password, user)
         sql="SELECT * FROM usuario"
