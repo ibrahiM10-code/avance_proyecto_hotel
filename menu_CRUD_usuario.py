@@ -1,4 +1,5 @@
 from DTO.usuario import Usuario
+from DTO.validadores import *
 from termcolor import colored
 import DAO.CRUD_Usuario
 import os, sys
@@ -67,8 +68,7 @@ def modificar_usuario():
     datos_actuales = DAO.CRUD_Usuario.mostrar_particular(id=id_modificar)
     
     nuevos_datos.append(datos_actuales[0])
-    nuevos_datos.append(datos_actuales[4])
-    nuevos_datos.append(datos_actuales[10])
+
 
     opc = input(f"¿Desea modificar el nombre del usuario? Actual: {datos_actuales[1]} [SI/NO]: ").lower()
     if opc == "si":
@@ -91,6 +91,8 @@ def modificar_usuario():
     else:
         nuevos_datos.append(datos_actuales[3])
 
+    nuevos_datos.append(datos_actuales[4])
+
     opc = input(f"¿Desea modificar la dirección del usuario? Actual: {datos_actuales[5]} [SI/NO]: ").lower()
     if opc == "si":
         nueva_direccion = input("Ingrese la nueva dirección: ")
@@ -112,6 +114,7 @@ def modificar_usuario():
     else:
         nuevos_datos.append(datos_actuales[7])
 
+    nuevos_datos.append(datos_actuales[8])
     opc = input(f"¿Desea modificar el apellido materno del usuario? Actual: {datos_actuales[9]} [SI/NO]: ").lower()
     if opc == "si":
         nuevo_apellido_materno = input("Ingrese el apellido materno nuevo: ")
@@ -119,7 +122,13 @@ def modificar_usuario():
     else:
         nuevos_datos.append(datos_actuales[9])
 
+    nuevos_datos.append(datos_actuales[10])
     DAO.CRUD_Usuario.modificar(usu=nuevos_datos)
+
+def eliminar_usuario():
+    consultar_todo()
+    id_eliminar = int(input("Ingrese el ID del usuario a eliminar: "))
+    DAO.CRUD_Usuario.eliminar(id=id_eliminar)
 
 def menu_usuario():
     while True:
@@ -133,18 +142,11 @@ def menu_usuario():
             ingresar_datos_usuario()
         elif opcion == 2:
             modificar_usuario()
+        elif opcion == 3:
+            eliminar_usuario()
         elif opcion == 4:
             consulta_usuario()
-        else:
-            break
-    # if opcion == 4:
-    #     from DTO.MENUconsulta_usu import consulta_Usu
-    #     consulta_Usu()        
-    # if opcion == 5:
-    #     opcionVolver_Salir = input("Ingrese aqui su respuesta: " + colored("volver","green") + "/" + colored("Salir","red") + ": ").lower()
-    #     if opcionVolver_Salir == "volver":
-    #         from DTO.menuPrincipal import MenuPrincipal
-    #         MenuPrincipal()
-    #     if opcionVolver_Salir == "salir":
-    #         os.system("cls")
-    #         sys.exit()
+        elif opcion == 5:
+            opcion_salir = input("Desea salir? "+ colored("Si","green") + "/" + colored("No","red")+ ": ").lower()
+            if opcion_salir == "si":
+                break

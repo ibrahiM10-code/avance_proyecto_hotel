@@ -13,9 +13,9 @@ def ingresar(usu):
 
         sql="INSERT INTO usuario SET nombre='{}',apellidoPaterno='{}',sexo='{}'," \
             "rut='{}',direccion='{}',correo='{}',telefono='{}', Tipo_Usuario_idTipo_Usuario = '{}'," \
-            "apellidoMaterno='{}'".\
+            "apellidoMaterno='{}', email = ''".\
             format(usu.nombre,usu.apellido_paterno,usu.sexo,usu.rut,usu.direccion,usu.correo,
-                   usu.telefono, usu.id_tipo_usuario,usu.apellido_materno)
+                   usu.telefono, usu.id_tipo_usuario,usu.apellido_materno, usu.email)
 
         con.ejecutar_query(sql)
         con.commit()
@@ -30,10 +30,9 @@ def modificar(usu):
     try:
         con = Conexion(db, host, password, user)
 
-        sql="UPDATE usuario SET rut='{}', nombre='{},'apellidoPaterno='{}',sexo='{}'," \
-            ",direccion='{}',correo='{}',telefono='{}'," \
-            "apellidoMaterno='{}', email= '{}' WHERE idUsuario= {}".\
-            format(usu[4],usu[1],usu[2],usu[3],usu[5],usu[6],usu[7],usu[9], usu[10], usu[0])
+        sql = f"UPDATE usuario SET nombre='{usu[1]}', apellidoPaterno='{usu[2]}',sexo='{usu[3]}', rut='{usu[4]}'" \
+            f",direccion='{usu[5]}',correo='{usu[6]}',telefono='{usu[7]}'," \
+            f"Tipo_Usuario_idTipo_Usuario = '{usu[8]}', apellidoMaterno='{usu[9]}', email='{usu[10]}' WHERE idUsuario= {usu[0]}"
 
         con.ejecutar_query(sql)
         con.commit()
@@ -42,6 +41,7 @@ def modificar(usu):
 
     except Exception as e:
         print("Error en la Modificación: ",e)
+        print(usu)
 
 
 #Función eliminar
@@ -49,8 +49,7 @@ def eliminar(id):
     try:
         con=Conexion(db, host, password, user)
 
-        sql="DELETE FROM usuario WHERE idUsuario={}".\
-            format(id)
+        sql = f"DELETE FROM usuario WHERE idUsuario = {id}"
 
         con.ejecutar_query(sql)
         con.commit()
