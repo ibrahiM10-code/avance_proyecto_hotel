@@ -2,8 +2,10 @@ from DTO.usuario import Usuario
 from DTO.validadores import *
 from termcolor import colored
 import DAO.CRUD_Usuario
-import os, sys
+import os, time
 
+# Usar los validadores para el rut y el email.
+# Pedir el sexo como un numero (1 si es masculino y 0 si es femenino) luego de acuerdo el numero convertirlo al string que le corresponda, para mandarlo a la base de datos no como un numero. 
 def ingresar_datos_usuario():
     nombre = input("Ingrese el nombre del empleado: ")
     apellido_paterno = input("Ingrese el apellido paterno del empleado: ")
@@ -16,7 +18,7 @@ def ingresar_datos_usuario():
     apellido_materno = input("Ingrese el apellido materno del empleado: ")
 
     nuevo_usuario = Usuario(nombre=nombre, apellido_paterno=apellido_paterno, sexo=sexo, rut=rut, direccion=direccion, correo=correo, telefono=telefono, id_tipo_usuario=tipo_usuario_id, apellido_materno=apellido_materno,email="")
-
+    time.sleep(1)
     DAO.CRUD_Usuario.ingresar(nuevo_usuario)
 
 
@@ -39,36 +41,38 @@ def consultar_particular(id_usuario):
 
 def consulta_usuario():
     while True:
-        print("\n \n" + "\t" * 6 + "1- Mostrar todo")
-        print("\n \n" + "\t" * 6 + "2- Consulta parcial")
-        print("\t" * 6 + "3- Consulta particular")
-        print("\t" * 6 + "4- Volver/salir")
+        print("\n \n" + "\t" * 6 + "1- Mostrar todo.")
+        print("\t" * 6 + "2- Consulta parcial.")
+        print("\t" * 6 + "3- Consulta particular.")
+        print("\t" * 6 + "4- Salir del Menu de consultas.")
         opcion = int(input("\n" + "\t" * 6 +"Opcion: "))
 
         if opcion == 1:
+            os.system("cls")
             consultar_todo()
         elif opcion == 2:
             cantidad_mostrar = int(input("Ingrese la cantidad de usuarios que desea mostrar: "))
+            os.system("cls")
             consultar_parcial(cantidad=cantidad_mostrar)
         elif opcion == 3:
             id_usuario_mostrar = int(input("Ingrese el ID del usuario que desea consultar: "))
+            os.system("cls")
             consultar_particular(id_usuario=id_usuario_mostrar)
         elif opcion == 4:
-            opcion_volver_salir = input("Ingrese aqui su respuesta: " + colored("volver","green") + "/" + colored("Salir","red") + ": ").lower()
-            if opcion_volver_salir == "volver":
-                break
-            if opcion_volver_salir == "salir":
+            opcion_volver_salir = input("Ingrese aqui su respuesta: " + colored("Si","green") + "/" + colored("No","red") + ": ").lower()
+            if opcion_volver_salir == "si":
                 os.system("cls")
-                sys.exit()
+                break
 
+
+# Usar el validador de email en el caso de que si se modifique el email.
 def modificar_usuario():
     nuevos_datos = []
     consultar_todo()
     id_modificar = int(input("Ingrese el ID del usuario a modificar: "))
     datos_actuales = DAO.CRUD_Usuario.mostrar_particular(id=id_modificar)
-    
-    nuevos_datos.append(datos_actuales[0])
 
+    nuevos_datos.append(datos_actuales[0])
 
     opc = input(f"¿Desea modificar el nombre del usuario? Actual: {datos_actuales[1]} [SI/NO]: ").lower()
     if opc == "si":
@@ -115,6 +119,7 @@ def modificar_usuario():
         nuevos_datos.append(datos_actuales[7])
 
     nuevos_datos.append(datos_actuales[8])
+
     opc = input(f"¿Desea modificar el apellido materno del usuario? Actual: {datos_actuales[9]} [SI/NO]: ").lower()
     if opc == "si":
         nuevo_apellido_materno = input("Ingrese el apellido materno nuevo: ")
@@ -123,30 +128,41 @@ def modificar_usuario():
         nuevos_datos.append(datos_actuales[9])
 
     nuevos_datos.append(datos_actuales[10])
+    time.sleep(1)
     DAO.CRUD_Usuario.modificar(usu=nuevos_datos)
 
 def eliminar_usuario():
     consultar_todo()
     id_eliminar = int(input("Ingrese el ID del usuario a eliminar: "))
+    time.sleep(1)
     DAO.CRUD_Usuario.eliminar(id=id_eliminar)
 
 def menu_usuario():
     while True:
+        os.system("cls")
         print("\n \n" + "\t" * 6 + "1- Ingresar usuario")
         print("\t" * 6 + "2- Modificar usuario")
         print("\t" * 6 + "3- Eliminar usuario")
         print("\t" * 6 + "4- Consultar usuario")
-        print("\t" * 6 + "5- Volver")
+        print("\t" * 6 + "5- Salir del CRUD de Usuario")
         opcion = int(input("\n" + "\t" * 6 +"Opcion: "))
         if opcion == 1:
+            os.system("cls")
             ingresar_datos_usuario()
         elif opcion == 2:
+            os.system("cls")
             modificar_usuario()
         elif opcion == 3:
+            os.system("cls")
             eliminar_usuario()
         elif opcion == 4:
+            os.system("cls")
             consulta_usuario()
         elif opcion == 5:
             opcion_salir = input("Desea salir? "+ colored("Si","green") + "/" + colored("No","red")+ ": ").lower()
             if opcion_salir == "si":
+                os.system("cls")
                 break
+        else:
+            print("Esa opcion no es valida. Intentalo de nuevo")
+            time.sleep(1)

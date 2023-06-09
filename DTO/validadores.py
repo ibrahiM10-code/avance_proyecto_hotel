@@ -31,6 +31,9 @@ def validaRut(rut):
 
 def validaEmail(email):
 
+    # Hacer una lista que contenga caracteres no admisibles en un correo para tener en consideracion durante la validacion.
+    # Cambiar los returns de True o False a mensajes interactivos.
+
     validador = "xxx.xx"
 
     if "@" in email and "." in email:

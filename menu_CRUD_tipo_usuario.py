@@ -1,7 +1,8 @@
 from DTO.tipo_usuario import Tipo_Usuario
+from DTO.validadores import *
 from termcolor import colored
 import DAO.CRUD_Tipo_Usuario
-import os, sys
+import os, time
 
 def ingresar_tipo_usuario():
     rol = input("Ingrese el rol del usuario: ")
@@ -28,17 +29,20 @@ def menu_tipo_usuario():
         print("\t" * 6 + "2- Modificar tipo_usuario")
         print("\t" * 6 + "3- Eliminar tipo_usuario")
         print("\t" * 6 + "4- Consultar tipo_usuario")
-        print("\t" * 6 + "5- Volver/salir")
+        print("\t" * 6 + "5- Salir del CRUD de Tipo de Usuario")
         opcion = int(input("\n" + "\t" * 6 +"Opcion: "))
 
         if opcion == 1:
+            os.system("cls")
             ingresar_tipo_usuario()
         elif opcion == 4:
+            os.system("cls")
             consultar_tipo_usuario()
         elif opcion == 5:
-            opcion_volver_salir = input("Ingrese aqui su respuesta: " + colored("volver","green") + "/" + colored("Salir","red") + ": ").lower()
-            if opcion_volver_salir == "volver":
-                break
-            elif opcion_volver_salir == "salir":
+            opcion_volver_salir = input("Ingrese aqui su respuesta: " + colored("Si","green") + "/" + colored("No","red") + ": ").lower()
+            if opcion_volver_salir == "si":
                 os.system("cls")
-                sys.exit()   
+                break
+        else:
+            print("Esa opcion no es valida. Intentalo de nuevo")
+            time.sleep(1)
