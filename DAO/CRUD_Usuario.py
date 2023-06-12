@@ -1,17 +1,17 @@
 from DTO.conexion import Conexion
 
 #Definir los datos para la conexión
-host='localhost'
-user='root'
-password=''
-db='mydb'
+host = 'localhost'
+user = 'root'
+password = ''
+db = 'mydb'
 
 #Función Ingresar
 def ingresar(usu):
     try:
-        con=Conexion(db, host, password, user)
+        con = Conexion(db, host, password, user)
 
-        sql="INSERT INTO usuario SET nombre='{}',apellidoPaterno='{}',sexo='{}'," \
+        sql = "INSERT INTO usuario SET nombre='{}',apellidoPaterno='{}',sexo='{}'," \
             "rut='{}',direccion='{}',correo='{}',telefono='{}', Tipo_Usuario_idTipo_Usuario = '{}'," \
             "apellidoMaterno='{}', email = ''".\
             format(usu.nombre,usu.apellido_paterno,usu.sexo,usu.rut,usu.direccion,usu.correo,
@@ -47,7 +47,7 @@ def modificar(usu):
 #Función eliminar
 def eliminar(id):
     try:
-        con=Conexion(db, host, password, user)
+        con = Conexion(db, host, password, user)
 
         sql = f"DELETE FROM usuario WHERE idUsuario = {id}"
 
@@ -63,11 +63,11 @@ def eliminar(id):
 
 def mostrar_todos():
     try:
-        con=Conexion(db, host, password, user)
-        sql="SELECT * FROM usuario"
+        con = Conexion(db, host, password, user)
+        sql = "SELECT * FROM usuario"
 
-        cursor=con.ejecutar_query(sql)
-        datos=cursor.fetchall()
+        cursor = con.ejecutar_query(sql)
+        datos = cursor.fetchall()
         con.disconnect()
         return datos
 
@@ -79,11 +79,11 @@ def mostrar_todos():
 
 def mostrar_particular(id):
     try:
-        con=Conexion(db, host, password, user)
-        sql="SELECT * FROM usuario WHERE idUsuario={}".format(id)
+        con = Conexion(db, host, password, user)
+        sql = "SELECT * FROM usuario WHERE idUsuario={}".format(id)
 
-        cursor=con.ejecutar_query(sql)
-        datos=cursor.fetchone()
+        cursor = con.ejecutar_query(sql)
+        datos = cursor.fetchone()
         con.disconnect()
         return datos
 
@@ -93,11 +93,11 @@ def mostrar_particular(id):
 
 def mostrar_parcial(cant):
     try:
-        con=Conexion(db, host, password, user)
-        sql="SELECT * FROM usuario"
+        con = Conexion(db, host, password, user)
+        sql = "SELECT * FROM usuario"
         
-        cursor=con.ejecutar_query(sql)
-        datos=cursor.fetchmany(cant)
+        cursor = con.ejecutar_query(sql)
+        datos = cursor.fetchmany(cant)
         con.disconnect()
         return datos
 

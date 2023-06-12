@@ -42,7 +42,7 @@ def eliminar(id):
     try:
         con = Conexion(db, host, password, user)
 
-        sql = f"DELETE FROM tipo_usuario WHERE idUsuario = {id}"
+        sql = f"DELETE FROM tipo_usuario WHERE idTipo_Usuario = {id}"
 
         con.ejecutar_query(sql)
         con.commit()
@@ -65,7 +65,7 @@ def mostrarTodos():
         return datos
 
     except Exception as e:
-        con.rollBack()
+        con.rollback()
         print("Errora al Mostrar Todos: ",e)
 
 #Función Mostrar Particular
@@ -73,7 +73,7 @@ def mostrarTodos():
 def mostrarParticular(id):
     try:
         con = Conexion(db, host, password, user)
-        sql = f"SELECT * FROM tipo_usuario WHERE idUsuario = {id}"
+        sql = f"SELECT * FROM tipo_usuario WHERE idTipo_Usuario = {id}"
 
         cursor=con.ejecutar_query(sql)
         datos=cursor.fetchone()
@@ -81,7 +81,7 @@ def mostrarParticular(id):
         return datos
 
     except Exception as e:
-        con.rollBack()
+        con.rollback()
         print("Error en Mosrar Particular: ",e)
 
 def mostrarParcial(cant):
@@ -95,5 +95,5 @@ def mostrarParcial(cant):
         return datos
 
     except Exception as e:
-        con.rollBack()
+        con.rollback()
         print("Error Consulta Parcial: ",e)

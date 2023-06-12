@@ -70,7 +70,7 @@ while True:
             if respuesta_salir == "si":
                 os.system("cls")
                 print(colored("\n \n \n \n" + "\t" * 6 + "Saliste...","red"))
-                time.sleep(2)
+                time.sleep(1)
                 os.system("cls")
                 sys.exit()      
             elif respuesta_salir == "no":
