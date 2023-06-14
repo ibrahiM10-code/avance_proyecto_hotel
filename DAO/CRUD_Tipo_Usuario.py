@@ -54,7 +54,7 @@ def eliminar(id):
 
 #Función MosrtrarTodos
 
-def mostrarTodos():
+def mostrar_todos():
     try:
         con = Conexion(db, host, password, user)
         sql="SELECT * FROM tipo_usuario"
@@ -70,7 +70,7 @@ def mostrarTodos():
 
 #Función Mostrar Particular
 
-def mostrarParticular(id):
+def mostrar_particular(id):
     try:
         con = Conexion(db, host, password, user)
         sql = f"SELECT * FROM tipo_usuario WHERE idTipo_Usuario = {id}"
@@ -84,7 +84,7 @@ def mostrarParticular(id):
         con.rollback()
         print("Error en Mosrar Particular: ",e)
 
-def mostrarParcial(cant):
+def mostrar_parcial(cant):
     try:
         con=Conexion(db, host, password, user)
         sql="SELECT * FROM tipo_usuario"

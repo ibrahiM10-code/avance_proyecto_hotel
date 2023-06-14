@@ -1,4 +1,4 @@
-def validaRut(rut):
+def valida_rut(rut):
     caracteres=".-"
     for x in range(len(caracteres)):
         rut=rut.replace(caracteres[x],"")
@@ -29,7 +29,7 @@ def validaRut(rut):
         return False
     
 
-def validaEmail(email):
+def valida_email(email):
 
     # Hacer una lista que contenga caracteres no admisibles en un correo para tener en consideracion durante la validacion.
     # Cambiar los returns de True o False a mensajes interactivos.
@@ -51,3 +51,4 @@ def validaEmail(email):
             print("Los correos deben contener un a @, una direccion de email, y un .com o .cl")
     else:
         return False
+    

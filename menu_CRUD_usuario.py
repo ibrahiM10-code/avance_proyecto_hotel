@@ -26,7 +26,7 @@ def consultar_todo():
     print("Datos:")
     datos = DAO.CRUD_Usuario.mostrar_todos()
     for data in datos:
-       print(f"ID: {data[0]}| Nombre: {data[1]} | A. Paterno: {data[2]} | A. Materno: {data[9]}\nSexo: {data[3]} | RUT: {data[4]} | Direccion: {data[5]} | Correo: {data[6]}\nTelefono: {data[7]}") 
+       print(f"ID: {data[0]}| Nombre: {data[1]} | A. Paterno: {data[2]} | A. Materno: {data[9]}\nSexo: {data[3]} | RUT: {data[4]} | Tipo de Usuario: {data[8]} | Direccion: {data[5]} | Correo: {data[6]}\nTelefono: {data[7]}") 
 
 def consultar_parcial(cantidad):
     print(f"Datos de {cantidad} usuario(s):")

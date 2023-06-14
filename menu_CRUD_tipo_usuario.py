@@ -5,24 +5,25 @@ import DAO.CRUD_Tipo_Usuario
 import os, time
 
 def ingresar_tipo_usuario():
+    # Validar rol ingresado y estado ingresado.
     rol = input("Ingrese el rol del usuario: ")
     estado = int(input("Ingrese su estado [1. Activo | 0. Inactivo]: "))
     tipo_usuario = Tipo_Usuario(nombre_tipo_usuario=rol, estado=estado)
     DAO.CRUD_Tipo_Usuario.ingresar(tipo_usuario)
 
 def consultar_todo():
-    datos = DAO.CRUD_Tipo_Usuario.mostrarTodos()
+    datos = DAO.CRUD_Tipo_Usuario.mostrar_todos()
     for data in datos:
         print(f"ID Tipo de Usuario: {data[0]} | Nombre del Tipo de Usuario: {data[1]} | Estado: {data[2]}")
 
 def consulta_parcial(cantidad):
-    datos = DAO.CRUD_Tipo_Usuario.mostrarParcial(cant=cantidad)
+    datos = DAO.CRUD_Tipo_Usuario.mostrar_parcial(cant=cantidad)
     for data in datos:
         print(f"ID Tipo de Usuario: {data[0]} | Nombre del Tipo de Usuario: {data[1]} | Estado: {data[2]}")
 
 def consulta_particular(id_tipo_usuario):
     print(f"Datos del Tipo de Usuario con ID {id_tipo_usuario}")
-    data = DAO.CRUD_Tipo_Usuario.mostrarParticular(id=id_tipo_usuario)
+    data = DAO.CRUD_Tipo_Usuario.mostrar_particular(id=id_tipo_usuario)
     print(f"ID Tipo de Usuario: {data[0]} | Nombre del Tipo de Usuario: {data[1]} | Estado: {data[2]}")
 
 def consultar_tipo_usuario():
@@ -50,6 +51,31 @@ def consultar_tipo_usuario():
             opcion_volver_salir = input("Desea salir? " + colored("Si","green") + "/" + colored("No","red") + ": ").lower()
             if opcion_volver_salir == "si":
                 break
+
+def modificar_tipo_usuario():
+    nuevos_datos = []
+    consultar_todo()
+    id_modificar = int(input("Ingrese el ID del tipo de usuario a modificar: "))
+    datos_actuales = DAO.CRUD_Tipo_Usuario.mostrar_particular(id=id_modificar)
+
+    nuevos_datos.append(datos_actuales[0])
+
+    opc = input(f"¿Desea modificar el tipo de usuario? Actual: {datos_actuales[1]} [SI/NO]: ").lower()
+    if opc == "si":
+        nuevo_tipo_usuario = input("Ingrese el nuevo tipo de usuario: ")
+        nuevos_datos.append(nuevo_tipo_usuario)
+    else:
+        nuevos_datos.append(datos_actuales[1])
+
+    opc = input(f"¿Desea modificar el estado del tipo de usuario? Actual: {datos_actuales[2]} [SI/NO]: ").lower()
+    if opc == "si":
+        nuevo_estado = int(input("Ingrese el nuevo estado [1. Activo | 0. Inactivo]: "))
+        nuevos_datos.append(nuevo_estado)
+    else:
+        nuevos_datos.append(datos_actuales[2])
+
+    time.sleep(1)
+    DAO.CRUD_Tipo_Usuario.modificar(tipo_usu=nuevos_datos)
                 
 def eliminar_tipo_usuario():
     consultar_todo()
@@ -71,8 +97,7 @@ def menu_tipo_usuario():
             ingresar_tipo_usuario()
         elif opcion == 2:
             os.system("cls")
-            print("Work in progress")
-            time.sleep(2)
+            modificar_tipo_usuario()
         elif opcion == 3:
             os.system("cls")
             eliminar_tipo_usuario()

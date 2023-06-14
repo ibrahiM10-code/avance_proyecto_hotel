@@ -1,5 +1,5 @@
 from termcolor import colored
-from menu_CRUD_usuario import *
+from menu_crud_usuario import *
 from menu_crud_tipo_usuario import *
 import DTO.validadores
 import os, time, pwinput, sys
