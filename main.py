@@ -1,6 +1,6 @@
 from termcolor import colored
-from menu_crud_usuario import *
-from menu_crud_tipo_usuario import *
+from menu_CRUD_usuario import *
+from menu_CRUD_tipo_usuario import *
 import DTO.validadores
 import os, time, pwinput, sys
 
@@ -15,12 +15,12 @@ while True:
     print("\n \n" + "\t" * tabs_texto + "Autenticarse.")
     email = input("\n \n" + "\t" * tabs_texto + "Email: " )
     contrasena = pwinput.pwinput(prompt="\t" * tabs_texto + "Contraseña: ", mask="*")
-    if DTO.validadores.validaEmail(email):
-        print("\n \n" + "\t" * tabs_texto + colored(email, "green") + " es un correo válido.")
+    if DTO.validadores.valida_email(email):
+        print("\n \n" + "\t" * tabs_texto + email + " es un correo válido.")
         time.sleep(1)
         break
     else:
-        print("\n \n" + "\t" * tabs_texto + colored(email, "red") + " no es un correo válido.")
+        print("\n \n" + "\t" * tabs_texto + email + " no es un correo válido.")
         # Con tal de no repetir el sleep y el limpiar pantalla 2 veces los puse en un bucle for.
         for _ in range(1):
             time.sleep(2)
@@ -30,7 +30,7 @@ os.system("cls")
 
 # Carga de la barra
 for i in range(100 + 1):
-    time.sleep(0.2)
+    time.sleep(0.1)
     os.system("cls")
     print("\n \n" + "\t" * tabs_carga_texto + str(i) + "%")
     if i != 0:

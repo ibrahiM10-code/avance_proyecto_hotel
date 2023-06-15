@@ -4,22 +4,41 @@ from termcolor import colored
 import DAO.CRUD_Usuario
 import os, time
 
-# Usar los validadores para el rut y el email.
-# Pedir el sexo como un numero (1 si es masculino y 0 si es femenino) luego de acuerdo el numero convertirlo al string que le corresponda, para mandarlo a la base de datos no como un numero. 
+# Rut validado
+# Sexo aceptado como entero y validado
+# Correo validado
+
 def ingresar_datos_usuario():
     nombre = input("Ingrese el nombre del empleado: ")
     apellido_paterno = input("Ingrese el apellido paterno del empleado: ")
-    sexo = input("Ingrese el sexo del empleado: ")
+    sexo = int(input("Ingrese el sexo del empleado [1. Masculino | 0. Feminino]: "))
+    if valida_sexo(sexo) == False:
+        print("Ingrese uno de los digitos señalados.")
+        time.sleep(1)
+        os.system("cls")
+        sexo = int(input("Ingrese el sexo del empleado: "))
+    else:
+        sexo = valida_sexo(sexo)
     rut = input("Ingrese el RUT del empleado: ")
+    if valida_rut(rut) == False:
+        print("Ingrese un RUT válido.")
+        time.sleep(1)
+        os.system("cls")
+        rut = input("Ingrese el RUT del empleado: ")
     direccion = input("Ingrese la dirección del empleado: ")
     correo = input("Ingrese el correo del empleado: ")
+    if valida_email(correo) == False:
+        print("Ingrese un correo válido.")
+        time.sleep(1)
+        os.system("cls")
+        correo = input("Ingrese el correo del empleado: ")
     telefono = input("Ingrese el telefono del empleado: ")
     tipo_usuario_id = int(input("Ingrese el ID del tipo de usuario: "))
     apellido_materno = input("Ingrese el apellido materno del empleado: ")
 
     nuevo_usuario = Usuario(nombre=nombre, apellido_paterno=apellido_paterno, sexo=sexo, rut=rut, direccion=direccion, correo=correo, telefono=telefono, id_tipo_usuario=tipo_usuario_id, apellido_materno=apellido_materno,email="")
-    time.sleep(1)
     DAO.CRUD_Usuario.ingresar(nuevo_usuario)
+    time.sleep(1)
 
 
 def consultar_todo():
@@ -65,7 +84,7 @@ def consulta_usuario():
                 break
 
 
-# Usar el validador de email en el caso de que si se modifique el email.
+# Validado el sexo y el correo
 def modificar_usuario():
     nuevos_datos = []
     consultar_todo()
@@ -88,10 +107,19 @@ def modificar_usuario():
     else:
         nuevos_datos.append(datos_actuales[2])
 
-    opc = input(f"¿Desea modificar el sexo del usuario? Actual: {datos_actuales[3]} [SI/NO]: ").lower()
+    opc = input(f"¿Desea modificar el sexo del usuario? [1. Masculino | 0. Femenino] Actual: {datos_actuales[3]} [SI/NO]: ").lower()
     if opc == "si":
-        nuevo_sexo = input("Ingrese el sexo nuevo: ")
-        nuevos_datos.append(nuevo_sexo)
+        nuevo_sexo = int(input("Ingrese el sexo nuevo: "))
+        if valida_sexo(nuevo_sexo) == False:
+            print("Ingrese uno de los digitos señalados.")
+            time.sleep(1)
+            os.system("cls")
+            nuevo_sexo = int(input("Ingrese el sexo del empleado [1. Masculino | 0. Femenino]: "))
+            nuevo_sexo = valida_sexo(nuevo_sexo)
+            nuevos_datos.append(nuevo_sexo)
+        else:
+            nuevo_sexo = valida_sexo(nuevo_sexo)
+            nuevos_datos.append(nuevo_sexo)
     else:
         nuevos_datos.append(datos_actuales[3])
 
@@ -107,6 +135,11 @@ def modificar_usuario():
     opc = input(f"¿Desea modificar el correo del usuario? Actual: {datos_actuales[6]} [SI/NO]: ").lower()
     if opc == "si":
         nuevo_correo = input("Ingrese el correo nuevo: ")
+        if valida_email(nuevo_correo) == False:
+            print("Ingrese un correo válido.")
+            time.sleep(1)
+            os.system("cls")
+            nuevo_correo = input("Ingrese el correo del empleado: ")           
         nuevos_datos.append(nuevo_correo)
     else:
         nuevos_datos.append(datos_actuales[6])
@@ -128,14 +161,14 @@ def modificar_usuario():
         nuevos_datos.append(datos_actuales[9])
 
     nuevos_datos.append(datos_actuales[10])
-    time.sleep(1)
     DAO.CRUD_Usuario.modificar(usu=nuevos_datos)
+    time.sleep(1)
 
 def eliminar_usuario():
     consultar_todo()
     id_eliminar = int(input("Ingrese el ID del usuario a eliminar: "))
-    time.sleep(1)
     DAO.CRUD_Usuario.eliminar(id=id_eliminar)
+    time.sleep(1)
 
 def menu_usuario():
     while True:

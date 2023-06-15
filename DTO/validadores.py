@@ -31,11 +31,15 @@ def valida_rut(rut):
 
 def valida_email(email):
 
-    # Hacer una lista que contenga caracteres no admisibles en un correo para tener en consideracion durante la validacion.
-    # Cambiar los returns de True o False a mensajes interactivos.
-
+    # Caracteres invalidos en email validados
+    caracteres_invalidos = ["''", "?", "¿", "¡", "!", "#", "$", "%", "&", "/", "(", ")", "=", "*", "-", "+"]
     validador = "xxx.xx"
 
+    for caracter in caracteres_invalidos:
+        if caracter in email:
+            print("El email ingresado contiene caracteres invalidos.")
+            break
+    
     if "@" in email and "." in email:
 
         mail = email.split("@")[-1].split(".")[0] #gmail
@@ -52,3 +56,24 @@ def valida_email(email):
     else:
         return False
     
+# Valida rol implementado
+def valida_rol(rol_usuario):
+    match rol_usuario:
+        case 1:
+            rol_usuario = "Administrador"
+        case 0:
+            rol_usuario = "Recepcionista"
+        case _ :
+            return "No hay un rol asociado con este digito"
+    return rol_usuario
+
+# Valida sexo implementado
+def valida_sexo(sexo_usuario):
+    match sexo_usuario:
+        case 1:
+            sexo_usuario = "Masculino"
+        case 0:
+            sexo_usuario = "Femenino"
+        case _:
+            return "No hay un sexo asociado con este digito"
+    return sexo_usuario

@@ -4,12 +4,18 @@ from termcolor import colored
 import DAO.CRUD_Tipo_Usuario
 import os, time
 
+# Rol validado
 def ingresar_tipo_usuario():
-    # Validar rol ingresado y estado ingresado.
-    rol = input("Ingrese el rol del usuario: ")
+    rol = int(input("Ingrese el rol del usuario [1. Administrador | 0. Recepcionista]: "))
+    if valida_rol(rol) == False:
+        os.system("cls")
+        print(valida_rol(rol))
+        rol = int(input("Ingrese el rol del usuario [1. Administrador | 0. Recepcionista]: "))
+    rol = valida_rol(rol_usuario=rol)
     estado = int(input("Ingrese su estado [1. Activo | 0. Inactivo]: "))
     tipo_usuario = Tipo_Usuario(nombre_tipo_usuario=rol, estado=estado)
     DAO.CRUD_Tipo_Usuario.ingresar(tipo_usuario)
+    time.sleep(1)
 
 def consultar_todo():
     datos = DAO.CRUD_Tipo_Usuario.mostrar_todos()
@@ -40,18 +46,18 @@ def consultar_tipo_usuario():
         elif opcion == 2:
             os.system("cls")
             cantidad_mostrar = int(input("Ingrese la cantidad de tipos de usuario a visualizar: "))
-            # Validar la cantidad introducida.
             consulta_parcial(cantidad=cantidad_mostrar)
         elif opcion == 3:
             os.system("cls")
             id_tipo_usuario_mostrar = int(input("Ingrese el ID del tipo de usuario a eliminar: "))
-            # Validar el ID introducido
             consulta_particular(id_tipo_usuario=id_tipo_usuario_mostrar)
         elif opcion == 4:
             opcion_volver_salir = input("Desea salir? " + colored("Si","green") + "/" + colored("No","red") + ": ").lower()
             if opcion_volver_salir == "si":
                 break
 
+
+# Rol validado al modificar
 def modificar_tipo_usuario():
     nuevos_datos = []
     consultar_todo()
@@ -60,10 +66,18 @@ def modificar_tipo_usuario():
 
     nuevos_datos.append(datos_actuales[0])
 
-    opc = input(f"¿Desea modificar el tipo de usuario? Actual: {datos_actuales[1]} [SI/NO]: ").lower()
+    opc = input(f"¿Desea modificar el tipo de usuario? [1. Administrador | 0. Recepcionista] Actual: {datos_actuales[1]} [SI/NO]: ").lower()
     if opc == "si":
-        nuevo_tipo_usuario = input("Ingrese el nuevo tipo de usuario: ")
-        nuevos_datos.append(nuevo_tipo_usuario)
+        nuevo_tipo_usuario = int(input("Ingrese el nuevo tipo de usuario: "))
+        if valida_rol(nuevo_tipo_usuario) == False:
+            os.system("cls")
+            print(valida_rol(nuevo_tipo_usuario))
+            nuevo_tipo_usuario = int(input("Ingrese el rol del usuario [1. Administrador | 0. Recepcionista]: "))
+            nuevo_tipo_usuario = valida_rol(nuevo_tipo_usuario)
+            nuevos_datos.append(nuevo_tipo_usuario)
+        else:
+            nuevo_tipo_usuario = valida_rol(nuevo_tipo_usuario)
+            nuevos_datos.append(nuevo_tipo_usuario)
     else:
         nuevos_datos.append(datos_actuales[1])
 
@@ -74,14 +88,14 @@ def modificar_tipo_usuario():
     else:
         nuevos_datos.append(datos_actuales[2])
 
-    time.sleep(1)
     DAO.CRUD_Tipo_Usuario.modificar(tipo_usu=nuevos_datos)
+    time.sleep(1)
                 
 def eliminar_tipo_usuario():
     consultar_todo()
     id_eliminar = int(input("Ingrese el ID del Tipo de Usuario a eliminar: "))
-    time.sleep(1)
     DAO.CRUD_Tipo_Usuario.eliminar(id=id_eliminar)
+    time.sleep(1)
 
 def menu_tipo_usuario():
     while True:
