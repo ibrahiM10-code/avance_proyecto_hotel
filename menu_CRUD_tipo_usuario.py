@@ -4,7 +4,7 @@ from termcolor import colored
 import DAO.CRUD_Tipo_Usuario
 import os, time
 
-# Rol validado
+# Centrar texto
 def ingresar_tipo_usuario():
     rol = int(input("Ingrese el rol del usuario [1. Administrador | 0. Recepcionista]: "))
     if valida_rol(rol) == False:

@@ -4,9 +4,7 @@ from termcolor import colored
 import DAO.CRUD_Usuario
 import os, time
 
-# Rut validado
-# Sexo aceptado como entero y validado
-# Correo validado
+# Centrar texto
 
 def ingresar_datos_usuario():
     nombre = input("Ingrese el nombre del empleado: ")

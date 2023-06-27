@@ -1,6 +1,7 @@
 from termcolor import colored
-from menu_CRUD_usuario import *
-from menu_CRUD_tipo_usuario import *
+from menu_crud_usuario import *
+from menu_crud_tipo_usuario import *
+from menu_crud_pasajero import *
 import DTO.validadores
 import os, time, pwinput, sys
 
@@ -50,8 +51,8 @@ while True:
         print("")
         print("\t" * tabs_texto + "1- CRUD de Tipo de Usuario")
         print("\t" * tabs_texto + "2- CRUD de Usuario")
-        print("\t" * tabs_texto  + "3- CRUD de Reserva")
-        print("\t" * tabs_texto + "4- CRUD de Pasajero")
+        print("\t" * tabs_texto + "3- CRUD de Pasajero")
+        print("\t" * tabs_texto  + "4- CRUD de Reserva")
         print("\t" * tabs_texto  + "5- CRUD de Habitacion")
         print("\t" * tabs_texto + "6- CRUD de Tipo de Habitacion")
         print("\t" * tabs_texto + "7- Salir")
@@ -65,6 +66,9 @@ while True:
         elif opcion == 2:
             os.system("cls")
             menu_usuario()
+        elif opcion == 3:
+             os.system("cls")
+             menu_pasajero()
         elif opcion == 7:
             respuesta_salir = input("\t" * 6 + "¿Desea salir: " + colored("Si", "green") + "/" + colored("No: ","red")).lower()
             if respuesta_salir == "si":
