@@ -19,11 +19,11 @@ def ingresar(usu):
 
         con.ejecutar_query(sql)
         con.commit()
-        print("Datos Ingresados con Éxito :)")
+        print("\n" + "\t" * 6 + "Datos Ingresados con Éxito :)")
         con.disconnect()
 
     except Exception as e:
-        print("Error al Insertar: ",e)
+        print("\n" + "\t" * 6 + "Error al Insertar: ",e)
 
 #Función Modificar (usu es una lista que contiene los nuevos datos)
 def modificar(usu):
@@ -36,12 +36,11 @@ def modificar(usu):
 
         con.ejecutar_query(sql)
         con.commit()
-        print("Modificación Exitosa :)")
+        print("\n" + "\t" * 6 + "Modificación Exitosa :)")
         con.disconnect()
 
     except Exception as e:
-        print("Error en la Modificación: ",e)
-        print(usu)
+        print("\n" + "\t" * 6 + "Error en la Modificación: ",e)
 
 
 #Función eliminar
@@ -53,7 +52,7 @@ def eliminar(id):
 
         con.ejecutar_query(sql)
         con.commit()
-        print("Eliminación Exitosa :)")
+        print("\n" + "\t" * 6 + "Eliminación Exitosa :)")
         con.disconnect()
 
     except Exception as e:
@@ -73,7 +72,7 @@ def mostrar_todos():
 
     except Exception as e:
         con.rollBack()
-        print("Errora al Mostrar Todos: ",e)
+        print("\n" + "\t" * 6 + "Errora al Mostrar Todos: ",e)
 
 #Función Mostrar Particular
 
@@ -89,7 +88,7 @@ def mostrar_particular(id):
 
     except Exception as e:
         con.rollBack()
-        print("Error en Mosrar Particular: ",e)
+        print("\n" + "\t" * 6 + "Error en Mosrar Particular: ",e)
 
 def mostrar_parcial(cant):
     try:
@@ -103,4 +102,4 @@ def mostrar_parcial(cant):
 
     except Exception as e:
         con.rollBack()
-        print("Error Consulta Parcial: ",e)
+        print("\n" + "\t" * 6 + "Error Consulta Parcial: ",e)

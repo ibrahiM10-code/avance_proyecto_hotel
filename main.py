@@ -70,15 +70,15 @@ while True:
              os.system("cls")
              menu_pasajero()
         elif opcion == 7:
-            respuesta_salir = input("\t" * 6 + "¿Desea salir: " + colored("Si", "green") + "/" + colored("No: ","red")).lower()
+            respuesta_salir = input("\t" * tabs_texto + "¿Desea salir: " + colored("Si", "green") + "/" + colored("No: ","red")).lower()
             if respuesta_salir == "si":
                 os.system("cls")
-                print(colored("\n \n \n \n" + "\t" * 6 + "Saliste...","red"))
+                print(colored("\n \n \n \n" + "\t" * tabs_texto + "Saliste...","red"))
                 time.sleep(1)
                 os.system("cls")
                 sys.exit()      
             elif respuesta_salir == "no":
-                    print("\t" * 6 + "Estas Aqui...")
+                    print("\t" * tabs_texto + "Estas Aqui...")
         else:
             print("Esa opcion no es valida. Intentalo de nuevo")
             time.sleep(1)

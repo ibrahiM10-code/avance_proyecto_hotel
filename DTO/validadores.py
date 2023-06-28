@@ -77,3 +77,14 @@ def valida_sexo(sexo_usuario):
         case _:
             return "No hay un sexo asociado con este digito"
     return sexo_usuario
+
+
+def valida_pasajero(rol_pasajero):
+    match rol_pasajero:
+        case 1:
+            rol_pasajero = "Responsable"
+        case 0:
+            rol_pasajero = "Comun"
+        case _:
+            return "No hay un rol asociado con este digito"
+    return rol_pasajero
